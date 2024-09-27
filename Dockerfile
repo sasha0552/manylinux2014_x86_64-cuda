@@ -1,4 +1,4 @@
-FROM quay.io/pypa/manylinux2014_x86_64:2024.08.03-1
+FROM quay.io/pypa/manylinux2014_x86_64:2024.09.23-1
 ARG distro=rhel7
 ARG arch=x86_64
 RUN yum-config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/cuda-$distro.repo && \
@@ -7,5 +7,5 @@ RUN yum-config-manager --add-repo https://developer.download.nvidia.com/compute/
     rm -rf /var/cache/yum
 RUN echo "/usr/local/cuda/lib64" >> /etc/ld.so.conf.d/cuda.conf
 ENV CUDA_HOME=/usr/local/cuda
-ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
-ENV PATH="/usr/local/cuda/bin:$PATH"
+ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64"
+ENV PATH="$PATH:/usr/local/cuda/bin"
